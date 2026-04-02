@@ -1,0 +1,7 @@
+{
+  "name": "Sondié - Agendamento Online Inteligente",
+  "description": "Automatize a sua agenda, reduza faltas e permita que os seus clientes agendem sozinhos de forma simples e profissional em Portugal.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

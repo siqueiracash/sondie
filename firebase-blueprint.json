@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "Business": {
+      "title": "Negócio",
+      "description": "Informações sobre o negócio/profissional",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Nome do negócio" },
+        "slug": { "type": "string", "description": "Slug para o link personalizado" },
+        "description": { "type": "string" },
+        "logo": { "type": "string", "format": "uri" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "category": { "type": "string", "enum": ["clinica", "barbearia", "estetica", "nail_designer", "depilacao", "fisioterapia", "personal_trainer", "oficina", "outro"] },
+        "ownerId": { "type": "string", "description": "UID do proprietário" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "ownerId", "category"]
+    },
+    "Service": {
+      "title": "Serviço",
+      "description": "Serviços oferecidos pelo negócio",
+      "type": "object",
+      "properties": {
+        "businessId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "duration": { "type": "integer", "description": "Duração em minutos" },
+        "price": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["businessId", "name", "duration", "price", "isActive"]
+    },
+    "Employee": {
+      "title": "Funcionário",
+      "description": "Membros da equipa",
+      "type": "object",
+      "properties": {
+        "businessId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "commission": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "services": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["businessId", "name", "isActive"]
+    },
+    "Appointment": {
+      "title": "Agendamento",
+      "description": "Marcações de serviços",
+      "type": "object",
+      "properties": {
+        "businessId": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "startTime": { "type": "string", "format": "date-time" },
+        "endTime": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed", "no_show"] },
+        "totalPrice": { "type": "number" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["businessId", "serviceId", "employeeId", "clientId", "startTime", "endTime", "status", "totalPrice"]
+    },
+    "Client": {
+      "title": "Cliente",
+      "description": "Informações do cliente",
+      "type": "object",
+      "properties": {
+        "businessId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["businessId", "name", "phone"]
+    }
+  },
+  "firestore": {
+    "/businesses/{businessId}": { "schema": "Business", "description": "Coleção de negócios" },
+    "/businesses/{businessId}/services/{serviceId}": { "schema": "Service", "description": "Serviços de um negócio" },
+    "/businesses/{businessId}/employees/{employeeId}": { "schema": "Employee", "description": "Funcionários de um negócio" },
+    "/businesses/{businessId}/appointments/{appointmentId}": { "schema": "Appointment", "description": "Agendamentos de um negócio" },
+    "/businesses/{businessId}/clients/{clientId}": { "schema": "Client", "description": "Clientes de um negócio" }
+  }
+}
