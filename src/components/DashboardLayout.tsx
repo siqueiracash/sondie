@@ -16,7 +16,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { cn } from '@/src/lib/utils';
+import { cn } from '../lib/utils';
 import { logout } from '../firebase';
 
 const NavItem = ({ icon: Icon, label, path, active, collapsed }: { icon: any, label: string, path: string, active: boolean, collapsed: boolean }) => (

@@ -19,7 +19,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { cn } from '@/src/lib/utils';
+import { cn } from '../lib/utils';
 import { useSondieImage } from '../lib/gemini-images';
 
 const FeatureCard = ({ icon: Icon, title, description, delay = 0 }: { icon: any, title: string, description: string, delay?: number }) => (

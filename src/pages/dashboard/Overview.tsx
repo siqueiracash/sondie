@@ -20,7 +20,7 @@ import {
   Tooltip, 
   ResponsiveContainer
 } from 'recharts';
-import { cn } from '@/src/lib/utils';
+import { cn } from '../../lib/utils';
 import { getBusinesses, getAppointments } from '../../services/firestoreService';
 import { Appointment, Business } from '../../types';
 import { auth } from '../../firebase';

@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { format, addDays, startOfToday, isSameDay, addMinutes } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import { cn } from '@/src/lib/utils';
+import { cn } from '../lib/utils';
 import { getBusinessBySlug, getServices, getEmployees, createClient, createAppointment } from '../services/firestoreService';
 import { Business, Service, Employee } from '../types';
 
