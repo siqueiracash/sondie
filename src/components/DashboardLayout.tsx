@@ -66,7 +66,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       {/* Desktop Sidebar */}
       <aside 
         className={cn(
-          "hidden lg:flex flex-col bg-white border-r border-slate-200 transition-all duration-300 sticky top-0 h-[calc(100vh-64px)]",
+          "hidden lg:flex flex-col bg-white border-r border-slate-200 transition-all duration-300 sticky top-16 h-[calc(100vh-64px)]",
           collapsed ? "w-20" : "w-64"
         )}
       >

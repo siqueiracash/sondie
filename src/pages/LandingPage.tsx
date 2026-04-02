@@ -60,11 +60,11 @@ const CategoryCard = ({ icon: Icon, title }: { icon: any, title: string }) => (
 
 export default function LandingPage() {
   const { imageUrl: heroImage, loading: heroLoading } = useSondieImage(
-    "A high-quality professional software mockup showing a desktop dashboard in the background with a calendar agenda, and a modern smartphone in the foreground displaying a booking page. The UI is clean, modern, and branded with 'Sondié'."
+    "A premium, ultra-realistic 3D software mockup. In the center, a sleek smartphone shows a beautiful booking interface with the text 'Sondié' at the top. In the background, a blurred MacBook displays a professional scheduling dashboard. The lighting is soft, using indigo and white tones. Professional photography style."
   );
   
   const { imageUrl: dashboardImage, loading: dashboardLoading } = useSondieImage(
-    "A high-quality professional software mockup of a smartphone screen displaying a business management dashboard. It shows statistics like '148 Clientes' and '12 Agendamentos', and a list of today's appointments. Branded with 'Sondié'."
+    "A professional close-up mockup of a tablet screen held by a person in a modern office. The screen shows a business management app called 'Sondié' with vibrant charts, a list of appointments for 'Lisboa', and a clean sidebar. High-end tech aesthetic."
   );
 
   return (
