@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import { useSondieImage } from '../lib/gemini-images';
 
 const FeatureCard = ({ icon: Icon, title, description, delay = 0 }: { icon: any, title: string, description: string, delay?: number }) => (
   <motion.div 
@@ -58,35 +59,16 @@ const CategoryCard = ({ icon: Icon, title }: { icon: any, title: string }) => (
 );
 
 export default function LandingPage() {
+  const { imageUrl: heroImage, loading: heroLoading } = useSondieImage(
+    "A high-quality professional software mockup showing a desktop dashboard in the background with a calendar agenda, and a modern smartphone in the foreground displaying a booking page. The UI is clean, modern, and branded with 'Sondié'."
+  );
+  
+  const { imageUrl: dashboardImage, loading: dashboardLoading } = useSondieImage(
+    "A high-quality professional software mockup of a smartphone screen displaying a business management dashboard. It shows statistics like '148 Clientes' and '12 Agendamentos', and a list of today's appointments. Branded with 'Sondié'."
+  );
+
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <Calendar className="text-white w-5 h-5" />
-              </div>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">
-                Sondié
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#funcionalidades" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Funcionalidades</a>
-              <a href="#vantagens" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Vantagens</a>
-              <a href="#setores" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Setores</a>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link to="/login" className="text-slate-600 hover:text-indigo-600 font-medium px-4 py-2 transition-colors">Entrar</Link>
-              <Link to="/register" className="bg-indigo-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 active:scale-95">
-                Começar Grátis
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -142,12 +124,18 @@ export default function LandingPage() {
             className="mt-16 relative"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10" />
-            <img 
-              src="https://picsum.photos/seed/dashboard/1200/600" 
-              alt="Dashboard Sondié" 
-              className="rounded-3xl shadow-2xl border border-slate-200 mx-auto"
-              referrerPolicy="no-referrer"
-            />
+            {heroLoading ? (
+              <div className="w-full max-w-4xl h-[400px] bg-slate-100 rounded-3xl animate-pulse mx-auto flex items-center justify-center">
+                <p className="text-slate-400 font-medium">A gerar visualização Sondié...</p>
+              </div>
+            ) : (
+              <img 
+                src={heroImage || "https://picsum.photos/seed/dashboard/1200/600"} 
+                alt="Dashboard Sondié" 
+                className="rounded-3xl shadow-2xl border border-slate-200 mx-auto"
+                referrerPolicy="no-referrer"
+              />
+            )}
           </motion.div>
         </div>
       </section>
@@ -256,12 +244,18 @@ export default function LandingPage() {
             <div className="lg:w-1/2">
               <div className="relative">
                 <div className="absolute -inset-4 bg-indigo-500/20 rounded-[2rem] blur-2xl" />
-                <img 
-                  src="https://picsum.photos/seed/professional/600/800" 
-                  alt="Profissional usando Sondié" 
-                  className="rounded-[2rem] shadow-2xl relative z-10 border border-white/10"
-                  referrerPolicy="no-referrer"
-                />
+                {dashboardLoading ? (
+                  <div className="w-full h-[600px] bg-slate-800 rounded-[2rem] animate-pulse flex items-center justify-center">
+                    <p className="text-slate-500 font-medium">A gerar dashboard Sondié...</p>
+                  </div>
+                ) : (
+                  <img 
+                    src={dashboardImage || "https://picsum.photos/seed/professional/600/800"} 
+                    alt="Profissional usando Sondié" 
+                    className="rounded-[2rem] shadow-2xl relative z-10 border border-white/10"
+                    referrerPolicy="no-referrer"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -288,28 +282,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 border-t border-slate-100 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center">
-                <Calendar className="text-white w-4 h-4" />
-              </div>
-              <span className="text-xl font-bold text-slate-900">Sondié</span>
-            </div>
-            <div className="flex gap-8 text-slate-500 font-medium">
-              <a href="#" className="hover:text-indigo-600 transition-colors">Termos</a>
-              <a href="#" className="hover:text-indigo-600 transition-colors">Privacidade</a>
-              <a href="#" className="hover:text-indigo-600 transition-colors">Contacto</a>
-            </div>
-            <p className="text-slate-400 text-sm">
-              © 2026 Sondié. Feito com ❤️ em Lisboa.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

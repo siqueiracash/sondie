@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Calendar, 
@@ -40,6 +40,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleToggle = () => setMobileMenuOpen(prev => !prev);
+    window.addEventListener('toggle-dashboard-menu', handleToggle);
+    return () => window.removeEventListener('toggle-dashboard-menu', handleToggle);
+  }, []);
+
   const menuItems = [
     { icon: LayoutDashboard, label: 'Visão Geral', path: '/dashboard' },
     { icon: Calendar, label: 'Agenda', path: '/dashboard/agenda' },
@@ -60,7 +66,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       {/* Desktop Sidebar */}
       <aside 
         className={cn(
-          "hidden lg:flex flex-col bg-white border-r border-slate-200 transition-all duration-300 sticky top-0 h-screen",
+          "hidden lg:flex flex-col bg-white border-r border-slate-200 transition-all duration-300 sticky top-0 h-[calc(100vh-64px)]",
           collapsed ? "w-20" : "w-64"
         )}
       >
@@ -167,39 +173,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Header */}
-        <header className="bg-white border-b border-slate-200 h-16 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-8">
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg"
-          >
-            <Menu />
-          </button>
-
-          <div className="hidden sm:flex items-center gap-2 text-slate-500">
-            <span className="text-sm font-medium">Dashboard</span>
-            <ChevronRight size={14} />
-            <span className="text-sm font-bold text-slate-900">Visão Geral</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative">
-              <Bell size={20} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-            </button>
-            <div className="h-8 w-px bg-slate-200 mx-2" />
-            <div className="flex items-center gap-3 pl-2">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-bold text-slate-900 leading-none">João Silva</p>
-                <p className="text-xs text-slate-500 mt-1">Admin</p>
-              </div>
-              <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600">
-                <UserCircle size={24} />
-              </div>
-            </div>
-          </div>
-        </header>
-
         <main className="flex-1 p-4 sm:p-8 overflow-auto">
           {children}
         </main>

@@ -111,24 +111,6 @@ export default function ClientBooking() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div className="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold">
-              {business.name.charAt(0)}
-            </div>
-            <div>
-              <h1 className="font-bold text-slate-900 leading-none">{business.name}</h1>
-              <p className="text-xs text-slate-500 mt-1">{business.address || 'Lisboa, Portugal'}</p>
-            </div>
-          </div>
-          <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-full">
-            <Info size={20} />
-          </button>
-        </div>
-      </header>
-
       <main className="max-w-3xl mx-auto px-4 pt-8">
         {/* Progress Bar */}
         <div className="flex items-center gap-2 mb-8">
