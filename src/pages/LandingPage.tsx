@@ -58,25 +58,53 @@ const CategoryCard = ({ icon: Icon, title }: { icon: any, title: string }) => (
   </div>
 );
 
+const TestimonialCard = ({ name, role, content, image }: { name: string, role: string, content: string, image: string }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    viewport={{ once: true }}
+    className="p-8 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+  >
+    <div className="flex items-center gap-4 mb-6">
+      <img src={image} alt={name} className="w-14 h-14 rounded-full object-cover border-2 border-indigo-50" referrerPolicy="no-referrer" />
+      <div>
+        <h4 className="font-bold text-slate-900">{name}</h4>
+        <p className="text-sm text-slate-500">{role}</p>
+      </div>
+    </div>
+    <p className="text-slate-600 italic leading-relaxed">"{content}"</p>
+    <div className="mt-6 flex gap-1">
+      {[1, 2, 3, 4, 5].map(i => (
+        <Sparkles key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+      ))}
+    </div>
+  </motion.div>
+);
+
 export default function LandingPage() {
   const { imageUrl: heroImage, loading: heroLoading } = useSondieImage(
-    "A premium, ultra-realistic 3D software mockup. In the center, a sleek smartphone shows a beautiful booking interface with the text 'Sondié' at the top. In the background, a blurred MacBook displays a professional scheduling dashboard. The lighting is soft, using indigo and white tones. Professional photography style."
+    "A high-end, cinematic 3D render of a workspace. In the foreground, a modern iPhone 15 Pro displays a sleek 'Sondié' booking app with a clean calendar and indigo accents. In the background, a studio-lit MacBook Pro shows a professional business dashboard with analytics. The environment is a minimalist Lisbon-style office with soft natural light. 8k resolution, commercial photography style."
   );
   
   const { imageUrl: dashboardImage, loading: dashboardLoading } = useSondieImage(
-    "A professional close-up mockup of a tablet screen held by a person in a modern office. The screen shows a business management app called 'Sondié' with vibrant charts, a list of appointments for 'Lisboa', and a clean sidebar. High-end tech aesthetic."
+    "A professional lifestyle shot of a tablet screen being used by a stylish business owner in a modern Portuguese cafe. The screen shows the 'Sondié' management interface with a vibrant schedule and client list. The branding 'Sondié' is visible and elegant. Soft bokeh background, premium aesthetic."
   );
 
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#4f46e5 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-semibold mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-semibold mb-8 border border-indigo-100"
           >
             <Sparkles className="w-4 h-4" />
             <span>O Futuro do Agendamento em Portugal</span>
@@ -106,7 +134,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <Link to="/register" className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 flex items-center justify-center gap-2 group">
               Criar Conta Grátis
@@ -115,6 +143,27 @@ export default function LandingPage() {
             <a href="#demo" className="w-full sm:w-auto bg-white text-slate-700 border-2 border-slate-200 px-8 py-4 rounded-2xl text-lg font-bold hover:border-indigo-600 hover:text-indigo-600 transition-all flex items-center justify-center gap-2">
               Ver Demonstração
             </a>
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex items-center justify-center gap-8 text-slate-400 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all"
+          >
+            <div className="flex items-center gap-2 font-bold text-sm">
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <span>RGPD Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 font-bold text-sm">
+              <Zap className="w-5 h-5 text-amber-500" />
+              <span>Setup em 5 min</span>
+            </div>
+            <div className="flex items-center gap-2 font-bold text-sm">
+              <Users className="w-5 h-5 text-indigo-500" />
+              <span>+500 Empresas</span>
+            </div>
           </motion.div>
 
           <motion.div
@@ -190,27 +239,91 @@ export default function LandingPage() {
       </section>
 
       {/* Advantages Section */}
-      <section id="vantagens" className="py-24 px-4 sm:px-6 lg:px-8">
+      <section id="vantagens" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <AdvantageItem 
               percentage="80%"
-              title="Menos Tempo Respondendo"
+              title="Menos Tempo ao Telefone"
               description="Redução drástica de perguntas sobre disponibilidade. Os clientes veem a sua agenda em tempo real."
               icon={MessageSquare}
             />
             <AdvantageItem 
               percentage="24/7"
-              title="WhatsApp Inteligente"
-              description="Atendimento automático e contínuo. Programe o envio do link de agendamento automaticamente."
+              title="Agendamento Contínuo"
+              description="O seu negócio nunca fecha. Receba marcações enquanto dorme ou atende outros clientes."
               icon={Zap}
             />
             <AdvantageItem 
               percentage="30%+"
-              title="Mais Tempo para Crescer"
-              description="Aumento de produtividade ao automatizar tarefas repetitivas e focar no que realmente importa."
+              title="Aumento de Receita"
+              description="Reduza faltas com lembretes automáticos e aumente a sua taxa de ocupação mensal."
               icon={TrendingUp}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">O que dizem os nossos parceiros</h2>
+            <p className="text-slate-600 text-lg">Junte-se a centenas de profissionais que já transformaram o seu dia-a-dia.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <TestimonialCard 
+              name="Ana Silva"
+              role="Dona de Salão, Lisboa"
+              content="O Sondié mudou a minha vida. Antes passava o dia no WhatsApp, agora os clientes agendam sozinhos e eu foco-me no meu trabalho."
+              image="https://i.pravatar.cc/150?u=ana"
+            />
+            <TestimonialCard 
+              name="Ricardo Santos"
+              role="Barbeiro, Porto"
+              content="A redução de faltas foi imediata graças aos lembretes automáticos. O investimento pagou-se na primeira semana."
+              image="https://i.pravatar.cc/150?u=ricardo"
+            />
+            <TestimonialCard 
+              name="Marta Costa"
+              role="Fisioterapeuta, Coimbra"
+              content="Interface super simples e intuitiva. Os meus clientes adoram a facilidade de marcar consultas a qualquer hora."
+              image="https://i.pravatar.cc/150?u=marta"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Como funciona o Sondié?</h2>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">Em apenas 3 passos, transforme a gestão do seu negócio e comece a receber agendamentos automáticos.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-24 left-1/4 right-1/4 h-0.5 bg-slate-100 -z-10" />
+            
+            <div className="flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center text-3xl font-bold mb-8 shadow-xl shadow-indigo-100 group-hover:scale-110 transition-transform">1</div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Crie o seu Perfil</h3>
+              <p className="text-slate-500 leading-relaxed">Configure os seus serviços, horários e equipa em menos de 5 minutos. É simples e intuitivo.</p>
+            </div>
+
+            <div className="flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center text-3xl font-bold mb-8 shadow-xl shadow-indigo-100 group-hover:scale-110 transition-transform">2</div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Partilhe o seu Link</h3>
+              <p className="text-slate-500 leading-relaxed">Coloque o seu link Sondié no Instagram, WhatsApp e Google. Os seus clientes agendam sozinhos.</p>
+            </div>
+
+            <div className="flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center text-3xl font-bold mb-8 shadow-xl shadow-indigo-100 group-hover:scale-110 transition-transform">3</div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Gerencie e Cresça</h3>
+              <p className="text-slate-500 leading-relaxed">Receba notificações em tempo real, acompanhe as suas receitas e foque em atender os seus clientes.</p>
+            </div>
           </div>
         </div>
       </section>
