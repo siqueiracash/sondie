@@ -174,16 +174,36 @@ export default function LandingPage() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10" />
             {heroLoading ? (
-              <div className="w-full max-w-4xl h-[400px] bg-slate-100 rounded-3xl animate-pulse mx-auto flex items-center justify-center">
-                <p className="text-slate-400 font-medium">A gerar visualização Sondié...</p>
+              <div className="w-full max-w-4xl h-[400px] bg-slate-100 rounded-3xl animate-pulse mx-auto flex items-center justify-center flex-col gap-4">
+                <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                <p className="text-slate-400 font-medium">A gerar visualização Sondié com IA...</p>
               </div>
             ) : (
-              <img 
-                src={heroImage || "https://picsum.photos/seed/dashboard/1200/600"} 
-                alt="Dashboard Sondié" 
-                className="rounded-3xl shadow-2xl border border-slate-200 mx-auto"
-                referrerPolicy="no-referrer"
-              />
+              <>
+                {!heroImage && !process.env.GEMINI_API_KEY && (
+                  <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-3xl p-8 text-center">
+                    <div className="max-w-md bg-white p-8 rounded-2xl shadow-xl border border-indigo-100">
+                      <Sparkles className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">Ative as Imagens com IA</h3>
+                      <p className="text-slate-600 mb-6">
+                        Para ver as imagens personalizadas do Sondié, adicione a sua <strong>GEMINI_API_KEY</strong> nas definições do projeto.
+                      </p>
+                      <button 
+                        onClick={() => window.aistudio?.openSelectKey?.()}
+                        className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all"
+                      >
+                        Configurar Chave API
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <img 
+                  src={heroImage || "https://picsum.photos/seed/dashboard/1200/600"} 
+                  alt="Dashboard Sondié" 
+                  className="rounded-3xl shadow-2xl border border-slate-200 mx-auto"
+                  referrerPolicy="no-referrer"
+                />
+              </>
             )}
           </motion.div>
         </div>
@@ -358,16 +378,26 @@ export default function LandingPage() {
               <div className="relative">
                 <div className="absolute -inset-4 bg-indigo-500/20 rounded-[2rem] blur-2xl" />
                 {dashboardLoading ? (
-                  <div className="w-full h-[600px] bg-slate-800 rounded-[2rem] animate-pulse flex items-center justify-center">
+                  <div className="w-full h-[600px] bg-slate-800 rounded-[2rem] animate-pulse flex items-center justify-center flex-col gap-4">
+                    <div className="w-10 h-10 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin" />
                     <p className="text-slate-500 font-medium">A gerar dashboard Sondié...</p>
                   </div>
                 ) : (
-                  <img 
-                    src={dashboardImage || "https://picsum.photos/seed/professional/600/800"} 
-                    alt="Profissional usando Sondié" 
-                    className="rounded-[2rem] shadow-2xl relative z-10 border border-white/10"
-                    referrerPolicy="no-referrer"
-                  />
+                  <>
+                    {!dashboardImage && !process.env.GEMINI_API_KEY && (
+                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm rounded-[2rem] p-6 text-center">
+                        <div className="p-6 bg-slate-800 rounded-2xl border border-white/10 shadow-2xl">
+                          <p className="text-sm text-slate-300">Configure a sua chave API para ver imagens personalizadas do seu negócio.</p>
+                        </div>
+                      </div>
+                    )}
+                    <img 
+                      src={dashboardImage || "https://picsum.photos/seed/professional/600/800"} 
+                      alt="Profissional usando Sondié" 
+                      className="rounded-[2rem] shadow-2xl relative z-10 border border-white/10"
+                      referrerPolicy="no-referrer"
+                    />
+                  </>
                 )}
               </div>
             </div>
