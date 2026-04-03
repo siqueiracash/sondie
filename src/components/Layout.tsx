@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 import { useLocation } from 'react-router-dom';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -10,12 +11,13 @@ export default function Layout({ children }: { children: ReactNode }) {
   const showFooter = !isAuthPage && !isDashboard;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <Header />
       <main className="flex-grow pt-16">
         {children}
       </main>
       {showFooter && <Footer />}
+      <WhatsAppButton />
     </div>
   );
 }
